@@ -86,11 +86,9 @@
     '';
   };
 
-  programs.zsh = {
-    # enable = false;
-    # autosuggestions.enable = false;
-    enableGlobalCompInit = false;
-  };
+  # Prevents slow shell startup, we already compinit per-user,
+  # don't need to do it at the system level too.
+  programs.zsh.enableGlobalCompInit = false;
 
   home-manager.backupFileExtension = "bak";
   home-manager.users.jackbashford = {
@@ -118,11 +116,6 @@
         initExtra = ''
           setopt INC_APPEND_HISTORY
           bindkey "^[[3~" delete-char
-          zprof
-        '';
-
-        initExtraFirst = ''
-          zmodload zsh/zprof
         '';
 
         shellAliases = {
