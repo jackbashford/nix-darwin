@@ -39,12 +39,44 @@
         };
 
         initExtra = "setopt INC_APPEND_HISTORY";
+
+        shellAliases = {
+          j = "zellij";
+          l = "lsd";
+        };
+      };
+
+      helix = {
+        enable = true;
+        languages = {
+
+          language-server.nil = {
+            command = "nil";
+          };
+
+          language = [
+            {
+              name = "nix";
+              auto-format = true;
+              file-types = [ "nix" ];
+              indent = {
+                tab-width = 2;
+                unit = "  ";
+              };
+              formatter.command = "nixfmt";
+              language-servers = [ "nil" ];
+            }
+          ];
+        };
       };
 
       fzf.enable = true;
       starship.enable = true;
       zoxide.enable = true;
-      helix.enable = true;
+      zellij.enable = true;
+      lsd.enable = true;
+      man.enable = true;
+      ripgrep.enable = true;
     };
 
     home.stateVersion = "24.11";
