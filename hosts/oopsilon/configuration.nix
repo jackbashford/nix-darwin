@@ -22,6 +22,9 @@
     packages = [
       pkgs.nixfmt-rfc-style
       pkgs.nil
+      pkgs.typst
+      pkgs.tinymist
+      pkgs.typstyle
     ];
   };
 
@@ -54,10 +57,9 @@
   services.skhd = {
     enable = true;
     skhdConfig = ''
-      shift + alt - y: yabai --restart-service
-      alt - y: yabai --stop-service
-
       alt - t: kitty --single-instance -d ~
+
+      alt - y: yabai -m window --toggle float
 
       shift + alt - h: yabai -m window --warp west
       shift + alt - j: yabai -m window --warp south
@@ -82,6 +84,12 @@
 
       alt - f : yabai -m window --toggle zoom-fullscreen
     '';
+  };
+
+  programs.zsh = {
+    # enable = false;
+    # autosuggestions.enable = false;
+    enableGlobalCompInit = false;
   };
 
   home-manager.backupFileExtension = "bak";
@@ -110,6 +118,11 @@
         initExtra = ''
           setopt INC_APPEND_HISTORY
           bindkey "^[[3~" delete-char
+          zprof
+        '';
+
+        initExtraFirst = ''
+          zmodload zsh/zprof
         '';
 
         shellAliases = {
@@ -143,13 +156,17 @@
         };
       };
 
+      fd = {
+        enable = true;
+        hidden = true;
+      };
       fzf.enable = true;
-      starship.enable = true;
-      zoxide.enable = true;
-      zellij.enable = true;
       lsd.enable = true;
       man.enable = true;
       ripgrep.enable = true;
+      starship.enable = true;
+      zellij.enable = true;
+      zoxide.enable = true;
     };
 
     home.stateVersion = "24.11";
