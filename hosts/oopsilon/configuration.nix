@@ -29,7 +29,7 @@
 
   services.yabai = {
     enable = true;
-    enableScriptingAddition = false;
+    enableScriptingAddition = true;
     config = {
       layout = "bsp";
       window_placement = "second_child";
@@ -41,6 +41,14 @@
       right_padding = 4;
       window_gap = 2;
     };
+    extraConfig = ''
+      yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+      yabai --load-sa
+
+      yabai -m rule --add app="^System Settings$" manage=off
+      yabai -m rule --add app="^1Password$" manage=off
+      yabai -m rule --add app="^Raycast$" manage=off
+    '';
   };
 
   services.skhd = {
@@ -50,7 +58,6 @@
       alt - y: yabai --stop-service
 
       alt - t: kitty --single-instance -d ~
-      shift + alt - d: discord
 
       shift + alt - h: yabai -m window --warp west
       shift + alt - j: yabai -m window --warp south
@@ -146,5 +153,8 @@
     };
 
     home.stateVersion = "24.11";
+    home.sessionVariables = {
+      EDITOR = "hx";
+    };
   };
 }
