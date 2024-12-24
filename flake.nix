@@ -9,12 +9,16 @@
 
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs =
     inputs@{
       self,
       nix-darwin,
+      catppuccin,
+      home-manager,
       ...
     }:
     {
@@ -27,6 +31,11 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.users.jackbashford = {
+              imports = [
+                catppuccin.homeManagerModules.catppuccin
+              ];
+            };
           }
         ];
       };

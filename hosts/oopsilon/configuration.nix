@@ -30,6 +30,8 @@
 
   security.pam.enableSudoTouchIdAuth = true;
 
+  # Yabai needed to have the /etc/sudoers.d/yabai file removed before
+  # it would play ball with the enableScriptingAddition option.
   services.yabai = {
     enable = true;
     enableScriptingAddition = true;
@@ -92,6 +94,9 @@
 
   home-manager.backupFileExtension = "bak";
   home-manager.users.jackbashford = {
+    # disabled for now to resolve the fact that it looks bad in places
+    catppuccin.enable = false;
+    catppuccin.flavor = "mocha";
     programs = {
       zsh = {
         enable = true;
@@ -120,13 +125,39 @@
 
         shellAliases = {
           j = "zellij";
-          l = "lsd";
           ls = "lsd -A";
+          cat = "bat";
         };
       };
 
       helix = {
         enable = true;
+
+        settings = {
+          theme = "catppuccin_mocha";
+          editor = {
+            line-number = "relative";
+            color-modes = true;
+            smart-tab.enable = false;
+            soft-wrap.enable = true;
+            cursor-shape = {
+              insert = "bar";
+              normal = "block";
+              select = "underline";
+            };
+            lsp.display-messages = true;
+          };
+
+          keys.normal = {
+            X = [
+              "extend_line_up"
+              "extend_to_line_bounds"
+            ];
+          };
+          keys.insert = {
+            C-h = "signature_help";
+          };
+        };
         languages = {
 
           language-server.nil = {
@@ -149,6 +180,7 @@
         };
       };
 
+      bat.enable = true;
       fd = {
         enable = true;
         hidden = true;
@@ -158,6 +190,7 @@
       man.enable = true;
       ripgrep.enable = true;
       starship.enable = true;
+      tealdeer.enable = true;
       zellij.enable = true;
       zoxide.enable = true;
     };
