@@ -3,7 +3,7 @@
   services.skhd = {
     enable = true;
     skhdConfig = ''
-      alt - t: /Applications/Ghostty.app/Contents/MacOS/ghostty -e
+      alt - t: open -a /Applications/Ghostty.app
 
       alt - y: yabai -m window --toggle float
 

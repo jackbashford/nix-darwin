@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
-    ./../../modules/home
+    ../../modules/home
     ./home.nix
   ];
   # The platform the configuration will be used on.
